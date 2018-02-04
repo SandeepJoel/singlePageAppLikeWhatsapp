@@ -1,0 +1,9 @@
+use mongochat
+db.createCollection('users')
+db.createCollection('chats')
+db.chats.insert({ roomName: 'admin-user', messages: [] })
+
+db.chats.insert([{ roomName: 'Peter-admin', messages: [] },{ roomName: 'Terry-admin', messages: [] },{ roomName: 'Sam-admin', messages: [] },{ roomName: 'Terry-user', messages: [] },{ roomName: 'Peter-user', messages: [] },{ roomName: 'Sam-user', messages: [] },{ roomName: 'Peter-Terry', messages: [] },{ roomName: 'Sam-Terry', messages: [] },{ roomName: 'Peter-Sam', messages: [] }])
+
+
+db.users.insert([{ name: 'admin', password: 'admin'},{ name: 'user', password: 'password'},{ name: 'Terry', password: 'terry'},{ name: 'Peter', password: 'peter'},{ name: 'Sam', password: 'sam'}])

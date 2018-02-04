@@ -1,0 +1,41 @@
+:root {
+  --primary-color: #B53471;
+  --secondary-color: #7f8c8d;
+}
+#messages {
+  height: 500px;
+  overflow: auto;
+}
+.hide {
+    display: none;
+}
+.switch-rooms {
+  display: block;
+  padding: 10px 15px;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  margin-top: 5px;
+}
+
+.switch-rooms.active{
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.chat {
+  margin: 5px;
+  padding: 7px 5px;
+  border: 1px solid var(--primary-color);
+}
+
+.user-name {
+  font-size: 8px;
+  padding: 1px 2px;
+  color: var(--primary-color);
+}
+
+.user-message {
+  font-size: 14px;
+  padding: 1px 3px;
+  color: var(--secondary-color);
+}
