@@ -26,7 +26,6 @@
   var sendBtn = element('send-message');
   var searchInput = element('search');
 
-  //show app
   showApp = function() {
     app.classList.remove('hide');
   }
@@ -57,7 +56,6 @@
 
   // Set status
   function setStatus (s) {
-    console.log(s);
     statusMessage.textContent = s;
   };
 
@@ -78,15 +76,11 @@
     })
     .then(function(response){
       if(response.data.success) {
-        console.log(response.data);
         hideLogin();
         window.User = userName;
         displayCurrentUserName();
         displayFriends();
         showApp();
-      }
-      else{
-        console.log(response.data.message);
       }
     })
     .catch(function(error){
@@ -99,7 +93,6 @@
     axios.post('/api/fetch_users')
     .then(function(response) {
       if (response.data.users) {
-        console.log(response.data.users);
         response.data.users.forEach(function(individual_user){
           if (individual_user.name !== window.User) {
             let userLink = document.createElement('a');
@@ -150,11 +143,16 @@
   }
 
   loginBtn.addEventListener('click', loginHandler);
+  qs('input[name=password]').addEventListener('keydown', function (event){
+    if(event.which === 13 && event.shiftKey == false) {
+      loginHandler();
+    }
+  });
+
   signOutBtn.addEventListener('click', function(){
     axios.post('/api/signout')
     .then(function(response){
       if(response.data.success && response.data.message) {
-        console.log(response.data.message);
         window.User = ''
         hideApp();
         showLogin();
@@ -191,7 +189,6 @@
               'friend': selectedFriend,
               'user': window.User
           }
-          console.log(roomData);
           socket.emit('update-room', roomData);
         }
       });
@@ -203,13 +200,11 @@
       });
 
       socket.on('roomchat-output', function(data){
-          console.log(data);
           appendMessagesToBox(data);
       });
 
       socket.on('message-history', function(data) {
         if(data['message-history']) {
-          console.log(data['message-history']);
           clearChildren(messages);
           data['message-history'].forEach(function(item) {
             appendMessagesToBox(item);
