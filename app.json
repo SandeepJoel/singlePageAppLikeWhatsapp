@@ -1,0 +1,10 @@
+{
+  "name": "A simple single page app",
+  "description": "This app will mimic the behaviour of whatsapp web.",
+  "repository": "https://github.com/SandeepJoel/singlePageAppLikeWhatsapp",
+  "scripts": {},
+  "env": {},
+  "addons": [],
+  "buildpacks": [],
+  "environments": {}
+}
