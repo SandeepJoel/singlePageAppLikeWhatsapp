@@ -1,9 +1,9 @@
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
-const io = require('socket.io')().listen(4000);
 const express = require('express');
-const app =  express();
+var app =  express();
+var server = require('http').createServer(app);
 const mongo =  require('mongodb').MongoClient;
 // const dbUrl = 'mongodb://localhost:27017/mongochat';
 // const dbName = 'mongochat';
@@ -11,11 +11,11 @@ const dbUrl = 'mongodb://sj_joel:joel@ds225038.mlab.com:25038/whatapp_web';
 const dbName = 'whatapp_web';
 let db;
 var port = process.env.PORT || 3000;
-
+const io = require('socket.io')(server);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());  // else req.body is undefined cause body-parser is separated from express from v4.0
-app.listen(port, function() {
+server.listen(port, function() {
   console.log('server listening...');
 });
 

@@ -165,7 +165,7 @@
   });
 
   // Connect to socket.io
-  var socket = io.connect('http://127.0.0.1:4000');
+  var socket = io();
 
   // Check for connection
   if(socket !== undefined){
