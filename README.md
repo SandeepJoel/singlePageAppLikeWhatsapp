@@ -19,4 +19,6 @@
 | Peter         | peter         |
 | Sam           | sam           |
 
+Date is stored in Mlab.
+
 >_**Note**: Since i used cookies to handle login, you need to open browser windows in incognito mode to login with two users to test the chat functionality._
