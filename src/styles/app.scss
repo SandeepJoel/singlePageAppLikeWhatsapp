@@ -1,3 +1,4 @@
+@import "~bootstrap/scss/bootstrap";
 :root {
   --dark-color: #2C232E;
   --primary-color: #A53653;
@@ -12,6 +13,12 @@ body {
   background-color: var(--dark-color);
   /* color: var(--secondary-color); */
   color: var(--primary-color);
+}
+
+.box1 {
+  .box2 {
+    color: white;
+  }
 }
 
 h1 {

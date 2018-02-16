@@ -1,26 +1,49 @@
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
+const webpackHotMiddleware = require('webpack-hot-middleware');
 const express = require('express');
-var app =  express();
-var port = process.env.PORT || 3000;
-
-// This line uses express inbuilt http server.
-var server = app.listen(port, function() {
-  console.log('server listening...');
-});
-
-const io = require('socket.io')(server);
+const isDevelopment = process.env.NODE_ENV !== "production";
 const mongo =  require('mongodb').MongoClient;
-// const dbUrl = 'mongodb://localhost:27017/mongochat';
-// const dbName = 'mongochat';
+const dbUrl = 'mongodb://localhost:27017/mongochat';
+const dbName = 'mongochat';
+
+/* Live Db config
 const dbUrl = 'mongodb://sj_joel:joel@ds225038.mlab.com:25038/whatapp_web';
 const dbName = 'whatapp_web';
-let db;
+*/
 
+var webpack = require("webpack");
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var config = require("./webpack.config.js");
+var port = process.env.PORT || 3000;
+var app =  express();
+var DIST_DIR = path.join(__dirname, "dist");
+var db;
+var compiler;
+
+// This line uses express inbuilt http server.
+const server = app.listen(port, function() {
+  console.log('server listening...');
+});
+const io = require('socket.io')(server);
 
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+if (isDevelopment) {
+  config.entry.push('webpack-hot-middleware/client');
+  compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler));
+  app.use(webpackHotMiddleware(compiler));
+  console.log('Development Environment...');
+}
+else {
+  console.log('Serving production site...');
+  app.use(express.static(DIST_DIR));
+}
+
+console.log(config.entry);
+
 app.use(bodyParser.json());  // else req.body is undefined cause body-parser is separated from express from v4.0
 
 // mongo connect

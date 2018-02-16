@@ -1,5 +1,39 @@
 // (function(){
-  User='';
+
+
+  if (process.env.NODE_ENV !== 'production') {
+    if (module.hot) {
+      module.hot.accept();
+     }
+  }
+  import io from 'socket.io-client';
+  import axios from 'axios';
+  import React from 'react';
+  import ReactDOM from 'react-dom';
+
+  // Connect to socket.io
+  var socket = io();
+
+  class App extends React.Component {
+    constructor (props) {
+      super (props);
+    }
+
+    render () {
+      return (
+        <div>
+          <h2>I am from react</h2>
+        </div>
+      );
+    }
+  };
+
+  ReactDOM.render
+  (<App/>,document.getElementById('root'))
+
+
+
+  window.User='';
   var element = function(id){
       return document.getElementById(id);
   }
@@ -26,19 +60,19 @@
   var sendBtn = element('send-message');
   var searchInput = element('search');
 
-  showApp = function() {
+  var showApp = function() {
     app.classList.remove('hide');
   }
 
-  hideApp = function() {
+  var hideApp = function() {
     app.classList.add('hide');
   }
 
-  hideLogin = function() {
+  var hideLogin = function() {
     login.classList.add('hide');
   }
 
-  showLogin = function() {
+  var showLogin = function() {
     login.classList.remove('hide');
   }
 
@@ -68,8 +102,8 @@
 
   // function to handle login submission
   function loginHandler () {
-    userName = qs('input[name=user_name]').value;
-    password = qs('input[name=password]').value;
+    var userName = qs('input[name=user_name]').value;
+    var password = qs('input[name=password]').value;
     axios.post('/api/login',{
       userName: userName,
       password: password
@@ -164,8 +198,6 @@
 
   });
 
-  // Connect to socket.io
-  var socket = io();
 
   // Check for connection
   if(socket !== undefined){
@@ -175,7 +207,9 @@
       });
 
       // when to emit "update-room"
-      roomListWrapper = element('users-list');
+      var roomListWrapper = element('users-list');
+      var roomsList;
+      var selectedFriend;
       roomListWrapper.addEventListener('click', function(event) {
         if (event.target && event.target.className === 'switch-rooms'){
           roomsList = Array.from(document.getElementsByClassName('switch-rooms'));
