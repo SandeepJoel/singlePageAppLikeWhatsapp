@@ -42,8 +42,6 @@ else {
   app.use(express.static(DIST_DIR));
 }
 
-console.log(config.entry);
-
 app.use(bodyParser.json());  // else req.body is undefined cause body-parser is separated from express from v4.0
 
 // mongo connect
@@ -108,11 +106,6 @@ app.post('/api/login', function (req, res){
       res.json({'success': true });
     }
   });
-});
-
-app.post('/api/signout', function(req, res){
-  res.clearCookie('mongo_chat_user');
-  res.json({'success': true, 'message': 'Signout Successful' });
 });
 
 app.post('/api/fetch_users', function(req, res){
